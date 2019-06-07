@@ -2,7 +2,7 @@
 
 Simply download or clone the files in this repo to a folder on a computer that is connected to the internet, then open index.html in your browser.
 
-NB - won't work in IE.
+NB - won't work in IE, but should in Edge.
 
 Tim Sewell
 Contract Front End Developer
