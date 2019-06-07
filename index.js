@@ -2,28 +2,29 @@ window.addEventListener('DOMContentLoaded', function () {
 var containerEl = document.getElementById('container'),
     listEl = document.getElementsByTagName('ul')[0];
 
+    function createListItem (aFaq) {
+        var li = document.createElement('li'),
+            qSpan = document.createElement('span'),
+            aSpan = document.createElement('span'),
+            switchSpan = document.createElement('span');
+
+        qSpan.classList.add('question');
+        aSpan.classList.add('answer');
+        switchSpan.classList.add('switch');
+        qSpan.textContent = 'Q: ' + aFaq.question;
+        aSpan.textContent = aFaq.answer;
+        switchSpan.textContent = '[ + ]';
+        qSpan.appendChild(switchSpan);
+
+        li.appendChild(qSpan);
+        li.appendChild(aSpan);
+        listEl.appendChild(li);
+    }
+
     function renderList (aResponse) {
         var faqs = aResponse.faqs;
         if (faqs.length) {
-            faqs.forEach(function (aFaq, aIndex) {
-                var li = document.createElement('li'),
-                    qSpan = document.createElement('span'),
-                    aSpan = document.createElement('span'),
-                    switchSpan = document.createElement('span');
-
-                qSpan.classList.add('question');
-                aSpan.classList.add('answer');
-                switchSpan.classList.add('switch');
-                qSpan.textContent = 'Q: ' + aFaq.question;
-                aSpan.textContent = aFaq.answer;
-                switchSpan.textContent = '[ + ]';
-                qSpan.appendChild(switchSpan);
-
-                li.appendChild(qSpan);
-                li.appendChild(aSpan);
-                listEl.appendChild(li);
-            });
-
+            faqs.forEach(createListItem);
             document.addEventListener('click', function (aEvent) {
                 if (aEvent.target && aEvent.target.classList.contains('question')) {
                     var answerEl = aEvent.target.closest('li').getElementsByClassName('answer')[0],
