@@ -19,7 +19,13 @@ var containerEl = document.getElementById('container'),
                 switchSpan.textContent = '[ + ]';
                 qSpan.appendChild(switchSpan);
 
-                qSpan.addEventListener('click', function (aEvent) {
+                li.appendChild(qSpan);
+                li.appendChild(aSpan);
+                listEl.appendChild(li);
+            });
+
+            document.addEventListener('click', function (aEvent) {
+                if (aEvent.target && aEvent.target.classList.contains('question')) {
                     var answerEl = aEvent.target.closest('li').getElementsByClassName('answer')[0],
                         active = answerEl.classList.contains('active'),
                         answerEls = document.getElementsByClassName('answer');
@@ -28,11 +34,7 @@ var containerEl = document.getElementById('container'),
                         answerEls.item(i).classList.remove('active');
                     }
                     answerEl.classList.toggle('active', !active);
-                });
-
-                li.appendChild(qSpan);
-                li.appendChild(aSpan);
-                listEl.appendChild(li);
+                }
             });
         }
     }
