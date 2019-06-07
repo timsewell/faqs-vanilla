@@ -21,22 +21,25 @@ var containerEl = document.getElementById('container'),
         listEl.appendChild(li);
     }
 
+    function onListItemClick (aEvent) {
+        if (aEvent.target && aEvent.target.classList.contains('question')) {
+            var answerEl = aEvent.target.closest('li')
+                    .getElementsByClassName('answer')[0],
+                active = answerEl.classList.contains('active'),
+                answerEls = document.getElementsByClassName('answer');
+
+            for (var i = 0; i < answerEls.length; i++) {
+                answerEls.item(i).classList.remove('active');
+            }
+            answerEl.classList.toggle('active', !active);
+        }
+    }
+
     function renderList (aResponse) {
         var faqs = aResponse.faqs;
         if (faqs.length) {
             faqs.forEach(createListItem);
-            document.addEventListener('click', function (aEvent) {
-                if (aEvent.target && aEvent.target.classList.contains('question')) {
-                    var answerEl = aEvent.target.closest('li').getElementsByClassName('answer')[0],
-                        active = answerEl.classList.contains('active'),
-                        answerEls = document.getElementsByClassName('answer');
-
-                    for (var i = 0; i < answerEls.length; i++) {
-                        answerEls.item(i).classList.remove('active');
-                    }
-                    answerEl.classList.toggle('active', !active);
-                }
-            });
+            document.addEventListener('click', onListItemClick);
         }
     }
 
